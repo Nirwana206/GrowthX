@@ -10,6 +10,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +63,123 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Color(0xFF7D94A0),
               ),
               textAlign: TextAlign.center,
+            ),
+          ),
+
+          // PageView with pills indicator
+          Positioned(
+            bottom: 80, // Adjust bottom padding as needed
+            left: 20, // Adjust left padding as needed
+            // right: 350, // Adjust right padding as needed
+            child: Column(
+              children: [
+                // PageView for swiping between content
+                SizedBox(
+                  height: 200, // Adjust height based on your content
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                    // children: [
+
+                    // ],
+                  ),
+                ),
+                // const SizedBox(height: 20), // Space between PageView and pills
+                // Pills Indicator
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(3, (index) {
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
+                      height: 04,
+                      width: _currentIndex == index ? 30 : 30,
+                      decoration: BoxDecoration(
+                        color: _currentIndex == index
+                            ? Colors.white
+                            : const Color(0xFF7D94A0),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    );
+                  }),
+                ),
+                //   Container(
+                //     decoration: const BoxDecoration(
+                //       gradient: LinearGradient(
+                //         colors: [
+                //           Color(0xFF0A4191),
+                //           Color(0xFF4480F1)
+                //         ], // Define your gradient colors
+                //         begin: Alignment.centerLeft,
+                //         end: Alignment.centerRight,
+                //       ),
+                //       borderRadius: BorderRadius.all(
+                //           Radius.circular(8.0)), // Adjust the radius as needed
+                //     ),
+                //     child: MaterialButton(
+                //       onPressed: () {},
+                //       shape: const RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       ),
+                //       padding: const EdgeInsets.symmetric(
+                //           vertical: 15.0,
+                //           horizontal: 30.0), // Adjust padding as needed
+                //       child: const Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: [
+                //           // Add some space between icon and text
+                //           Text("Next", style: TextStyle(color: Colors.white)),
+
+                //           Icon(Icons.arrow_right, color: Colors.white),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 20, // Adjust bottom padding as needed
+            right: 20, // Adjust right padding as needed
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF0A4191),
+                    Color(0xFF4480F1),
+                  ], // Define your gradient colors
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(15.0)), // Adjust the radius as needed
+              ),
+              child: MaterialButton(
+                onPressed: () {},
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 30.0), // Adjust padding as needed
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Add some space between icon and text
+                    const Text("Next", style: TextStyle(color: Colors.white)),
+                    const SizedBox(width: 15),
+                    Image.asset(
+                      "assets/images/arrow-right.png",
+                      height: 20,
+                      // width: 20,
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ],
